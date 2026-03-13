@@ -8,10 +8,7 @@ import kz.example.doner_cloud.Model.Ingredient.Type;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +21,7 @@ import java.util.stream.Collectors;
 public class DesignDonerController {
 
     @ModelAttribute
-    public void addIngridientsToModel(Model model) {
+    public void addIngredientsToModel(Model model) {
         List<Ingredient> ingredients = Arrays.asList(
                 new Ingredient("FLTO", "Flour Tortilla", Ingredient.Type.WRAP),
                 new Ingredient("COTO", "Corn Tortilla", Ingredient.Type.WRAP),
@@ -55,8 +52,17 @@ public class DesignDonerController {
     }
 
     @GetMapping
-    public String ShowDesignForm() {
+    public String showDesignForm() {
         return "design";
+    }
+
+    @PostMapping
+    public String processDoner(Doner doner,
+                               @ModelAttribute DonerOrder donerOrder) {
+        donerOrder.addDoner(doner);
+        log.info("Processing doner: {}", doner);
+
+        return "redirect:/orders/current";
     }
 
     private Iterable<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
