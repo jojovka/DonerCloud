@@ -1,8 +1,10 @@
 package kz.example.doner_cloud.Controller;
 
+import jakarta.validation.Valid;
 import kz.example.doner_cloud.Model.DonerOrder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +23,15 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(DonerOrder order,
+    public String processOrder(@Valid DonerOrder order,
+                               Errors errors,
                                SessionStatus sessionStatus) {
+        if (errors.hasErrors()) {
+            return "orderForm";
+        }
+
         log.info("Order submitted: {}", order);
-        sessionStatus.isComplete();
+        sessionStatus.setComplete();
 
         return "redirect:/";
     }

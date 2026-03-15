@@ -1,5 +1,6 @@
 package kz.example.doner_cloud.Controller;
 
+import jakarta.validation.Valid;
 import kz.example.doner_cloud.Model.Doner;
 import kz.example.doner_cloud.Model.DonerOrder;
 import kz.example.doner_cloud.Model.Ingredient;
@@ -8,6 +9,7 @@ import kz.example.doner_cloud.Model.Ingredient.Type;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -57,8 +59,15 @@ public class DesignDonerController {
     }
 
     @PostMapping
-    public String processDoner(Doner doner,
-                               @ModelAttribute DonerOrder donerOrder) {
+    public String processDoner(
+            @Valid Doner doner,
+            Errors errors,
+            @ModelAttribute DonerOrder donerOrder) {
+
+        if (errors.hasErrors()) {
+            return "design";
+        }
+
         donerOrder.addDoner(doner);
         log.info("Processing doner: {}", doner);
 
