@@ -8,7 +8,7 @@ public interface IngredientRepository {
 
     Iterable<Ingredient> findAll();
 
-    Optional<Ingredient> findById(long id);
+    Optional<Ingredient> findById(String id);
 
     Ingredient save(Ingredient ingredient);
 }
