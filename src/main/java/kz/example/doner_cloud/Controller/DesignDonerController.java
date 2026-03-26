@@ -7,6 +7,7 @@ import kz.example.doner_cloud.Model.Ingredient;
 import kz.example.doner_cloud.Model.Ingredient.Type;
 
 import kz.example.doner_cloud.Repository.Impl.JdbcIngredientRepository;
+import kz.example.doner_cloud.Repository.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,16 +24,16 @@ import java.util.stream.Collectors;
 @SessionAttributes("donerOrder")
 public class DesignDonerController {
 
-    private final JdbcIngredientRepository jdbcIngredientRepository;
+    private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public DesignDonerController(JdbcIngredientRepository jdbcIngredientRepository) {
-        this.jdbcIngredientRepository = jdbcIngredientRepository;
+    public DesignDonerController(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
     }
 
     @ModelAttribute
     public void addIngredientsToModel(Model model) {
-        Iterable<Ingredient> ingredients = jdbcIngredientRepository.findAll();
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
         Type[] types = Ingredient.Type.values();
         for(Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
