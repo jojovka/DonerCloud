@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,13 +15,16 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Table("Doner_Cloud_Order")
 public class DonerOrder implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @Id
     private Long id;
 
     private Date placedAt = new Date();
 
+    @Column("customer_name")
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
 

@@ -6,7 +6,6 @@ import kz.example.doner_cloud.Model.DonerOrder;
 import kz.example.doner_cloud.Model.Ingredient;
 import kz.example.doner_cloud.Model.Ingredient.Type;
 
-import kz.example.doner_cloud.Repository.Impl.JdbcIngredientRepository;
 import kz.example.doner_cloud.Repository.IngredientRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
