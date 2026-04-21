@@ -8,7 +8,7 @@
 <body>
 <h1>Design your doner!</h1>
 <img th:src="@{/images/DonerCloud.png}"/>
-<form method="POST" th:object="${doner}">
+<form method="POST" th:action="@{/design}" th:object="${doner}">
     <div class="grid">
         <div class="ingredient-group" id="wraps">
             <h3>Designate your wrap:</h3>
