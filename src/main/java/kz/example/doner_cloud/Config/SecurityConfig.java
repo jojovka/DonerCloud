@@ -32,12 +32,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/design", "/orders").hasRole("USER")
+                        .requestMatchers("/design", "/orders").authenticated()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/design")
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/design")
+                )
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login?logout")
                 );
         return http.build();
     }
