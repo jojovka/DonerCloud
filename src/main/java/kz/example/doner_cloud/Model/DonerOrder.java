@@ -54,6 +54,9 @@ public class DonerOrder implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Doner> doners = new ArrayList<>();
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private User user;
+
     public void addDoner(Doner doner) {
         this.doners.add(doner);
     }
